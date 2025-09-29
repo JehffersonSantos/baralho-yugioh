@@ -79,6 +79,11 @@ body {
     max-height: 350px;
 }
 
+.trocando {
+  animation: troca 0.5s;
+  transform: rotate(180deg);
+}
+
 @media (max-width: 780px) {
 
   .glossario {
@@ -107,8 +112,8 @@ body {
   }
 
   .image {
-    max-width: 300px;
-    max-height: 270px;
+    max-width: 350px;
+    max-height: 285px;
   }
 
 
