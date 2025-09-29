@@ -28,7 +28,7 @@ body {
 
 .glossario {
   color: var(--Marrom-escuro);
-  gap: 1rem;
+
 
 
 }
@@ -81,20 +81,38 @@ body {
 
 @media (max-width: 780px) {
 
+  .glossario {
+    gap: 0.1rem;
+  }
+
   .container {
     flex-direction: column-reverse;
     text-align: center;
+    height: auto;
+    gap: 1rem;
 
-  };
-
+  }
 
   .cards {
-    font-size: 2rem;
+    font-size: 1rem;
   }
-  
-}
+
+  .nome_card {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .images {
+    padding: 0.5rem;
+  }
+
+  .image {
+    max-width: 300px;
+    max-height: 270px;
+  }
 
 
+};
 
 
 
