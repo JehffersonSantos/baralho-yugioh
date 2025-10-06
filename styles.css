@@ -10,14 +10,13 @@
   --Bege-medio:#D6B47A;
   --Marrom-escuro:#5C3A1A;
   --Marrom-bescuro:#3C2413;
-
 }
 
 body {
   background-color: var(--Bege-claro);
   font-family: "Press Start 2P", system-ui;
-
 }
+
 .container {
   display: flex;
   gap: 2rem;
@@ -28,22 +27,17 @@ body {
 
 .glossario {
   color: var(--Marrom-escuro);
-
-
-
 }
 
 .cards {
   text-align: center;
   font-size: 3rem;
   border-bottom: 0.5rem solid var(--Marrom-escuro);
-  
 }
 
 .nomes_cards {
   text-align: center;
   font-size: 1.5rem;
-  
 }
 
 .nome_card {
@@ -53,39 +47,36 @@ body {
   border-left: 0.5rem solid var(--Marrom-escuro);
   padding: 1rem;
   background-color: var(--Bege-medio);
-
 }
 
-.images {
-  background-color: var(--Bege-medio);
-  border: solid 0.5rem var(--Marrom-escuro);
-  border-radius: 0.5rem;
-  padding: 1rem;
 
-}
 
 .nome_card:hover {
   text-transform: uppercase;
   background-color: var(--Bege-claro);
-
 }
 
 .image {
-    cursor: pointer;
-    border: solid 0.5rem var(--Marrom-escuro);
-    border-radius: 0.5rem;
-    color: var(--Marrom-escuro);
-    max-width: 500px;
-    max-height: 350px;
+  cursor: pointer;
+  border: solid 0.5rem var(--Marrom-escuro);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: var(--Marrom-escuro);
+  height: 350px;
+  width: 300px;
+  perspective: 1000px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform-origin: center bottom;
+  transition: transform 0.4s ease;
+  transform: rotateY(0deg) translateY(0);
 }
 
 .trocando {
-  animation: troca 0.5s;
-  transform: rotate(180deg);
+  transform: rotateY(180deg);
 }
 
 @media (max-width: 780px) {
-
   .glossario {
     gap: 0.1rem;
   }
@@ -95,7 +86,6 @@ body {
     text-align: center;
     height: auto;
     gap: 1rem;
-
   }
 
   .cards {
@@ -107,17 +97,12 @@ body {
     font-size: 0.8rem;
   }
 
-  .images {
+  .images_frente {
     padding: 0.5rem;
   }
 
   .image {
-    max-width: 350px;
-    max-height: 285px;
+    height: 285px;
+    width: 250px;
   }
-
-
-};
-
-
-
+}
