@@ -12,7 +12,10 @@ selecionarCard.forEach((btn) => {
         const id = button.getAttribute('id');
 
         imagemCard.classList.add("trocando");
-        imagemCard.classList.toggle("trocando");
+        setTimeout(() => {
+            imagemCard.classList.remove("trocando");
+        }, 400);
+
         imagemCard.setAttribute('src', `images/image_${id}.jpg`);
     
     });
