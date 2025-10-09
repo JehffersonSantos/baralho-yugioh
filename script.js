@@ -1,5 +1,7 @@
 const selecionarCard = document.querySelectorAll('.nome_card');
 const imagemCard = document.querySelector('.image');
+const carta_virada = 'images/image_9.jpg';
+
 
 const criarCard = document.createElement('img');
 
