@@ -64,7 +64,6 @@ body {
   color: var(--Marrom-escuro);
   height: 350px;
   width: 300px;
-  perspective: 1000px;
   backface-visibility: hidden;
   transform-style: preserve-3d;
   transform-origin: center bottom;
