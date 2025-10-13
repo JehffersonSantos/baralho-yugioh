@@ -5,12 +5,19 @@ const carta_virada = 'images/image_9.jpg';
 
 
 
-function trocarCarta(id) {
+// function trocarCarta(id) {
 
-    setTimeout(() => {
+//     setTimeout(() => {
+//         imagemCard.setAttribute('src', `images/image_${id}.jpg`);
+//     }, 200);
+// };
+
+function trocarCarta(id) { 
+    imagemCard.addEventListener('transitionend', () => {
         imagemCard.setAttribute('src', `images/image_${id}.jpg`);
-    }, 200);
-}
+    });
+};
+
 
 function virarCarta() {
 
@@ -18,7 +25,11 @@ function virarCarta() {
         setTimeout(() => {
         imagemCard.classList.remove("trocando");
         }, 400);
-}
+
+        // imagemCard.addEventListener('transitionend', () => {
+        //     imagemCard.setAttribute('src', carta_virada);
+        // })
+};
 
 selecionarCard.forEach((btn) => {
     btn.addEventListener('click', (e) => {
