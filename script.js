@@ -3,6 +3,8 @@ const cardImage = document.querySelector('.image');
 const cardDescription = document.querySelector('#card-description');
 const descriptionToggleBtn = document.querySelector('#toggle-description');
 const mobileQuery = window.matchMedia('(max-width: 780px)');
+const prevBtn = document.querySelector('#prev-card');
+const nextBtn = document.querySelector('#next-card');
 
 const CARD_BACK_SRC = 'images/image_9.jpg';
 const LIFT_DISTANCE_PX = 35;
@@ -73,6 +75,7 @@ const frontTransform = 'rotateY(0deg) translateY(0)';
 const liftMidTransform = `rotateY(90deg) translateY(-${LIFT_DISTANCE_PX}px)`;
 
 let isFlipping = false;
+let currentId = null;
 
 // Controla visibilidade da descrição em mobile/desktop
 const setDescriptionExpanded = (expanded) => {
@@ -109,42 +112,67 @@ if (descriptionToggleBtn) {
 applyResponsiveDescriptionState();
 mobileQuery.addEventListener('change', applyResponsiveDescriptionState);
 
+const flipTo = async (id) => {
+  if (isFlipping) return;
+  isFlipping = true;
+
+  const selectedCardSrc = `images/image_${id}.jpg`;
+
+  try {
+    cardImage.setAttribute('src', CARD_BACK_SRC);
+    cardImage.style.transform = frontTransform;
+    // primeira metade: levemente mais rápida na ida, com easing suave
+    cardImage.style.transition = 'transform 0.35s cubic-bezier(.30,.70,.40,1)';
+    void cardImage.offsetWidth;
+
+    const firstHalfTransition = waitForTransformEnd(cardImage);
+    cardImage.style.transform = liftMidTransform;
+
+    await Promise.all([firstHalfTransition, preloadImage(selectedCardSrc)]);
+
+    cardImage.setAttribute('src', selectedCardSrc);
+    if (cardDescription) {
+      cardDescription.textContent = descriptions[id] || '';
+    }
+    // segunda metade: um pouco mais longa, easing mais confortável no retorno
+    cardImage.style.transition = 'transform 0.45s cubic-bezier(.22,.61,.36,1)';
+    void cardImage.offsetWidth;
+
+    const secondHalfTransition = waitForTransformEnd(cardImage);
+    cardImage.style.transform = frontTransform;
+
+    await secondHalfTransition;
+    currentId = parseInt(id, 10);
+  } catch (error) {
+    console.error(`Erro ao carregar a imagem ${selectedCardSrc}`, error);
+    cardImage.style.transform = frontTransform;
+  } finally {
+    // limpa transição inline para respeitar o CSS padrão nas próximas interações
+    cardImage.style.transition = '';
+    isFlipping = false;
+  }
+};
+
 cardButtons.forEach((button) => {
   button.addEventListener('click', async (event) => {
-    if (isFlipping) {
-      return;
-    }
-
-    isFlipping = true;
-
     const { id } = event.currentTarget;
-    const selectedCardSrc = `images/image_${id}.jpg`;
-
-    try {
-      cardImage.setAttribute('src', CARD_BACK_SRC);
-      cardImage.style.transform = frontTransform;
-      void cardImage.offsetWidth;
-
-      const firstHalfTransition = waitForTransformEnd(cardImage);
-      cardImage.style.transform = liftMidTransform;
-
-      await Promise.all([firstHalfTransition, preloadImage(selectedCardSrc)]);
-
-      cardImage.setAttribute('src', selectedCardSrc);
-      if (cardDescription) {
-        cardDescription.textContent = descriptions[id] || '';
-      }
-      void cardImage.offsetWidth;
-
-      const secondHalfTransition = waitForTransformEnd(cardImage);
-      cardImage.style.transform = frontTransform;
-
-      await secondHalfTransition;
-    } catch (error) {
-      console.error(`Erro ao carregar a imagem ${selectedCardSrc}`, error);
-      cardImage.style.transform = frontTransform;
-    } finally {
-      isFlipping = false;
-    }
+    await flipTo(id);
   });
 });
+
+const nextId = (id) => (id ? ((id % 8) + 1) : 1);
+const prevId = (id) => (id ? (((id + 6) % 8) + 1) : 8);
+
+if (nextBtn) {
+  nextBtn.addEventListener('click', async () => {
+    const id = nextId(currentId);
+    await flipTo(id);
+  });
+}
+
+if (prevBtn) {
+  prevBtn.addEventListener('click', async () => {
+    const id = prevId(currentId);
+    await flipTo(id);
+  });
+}

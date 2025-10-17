@@ -29,10 +29,14 @@
             </ul>
         </section>
         <section class="carta">
-            <div class="ambas_cartas">
-                <div class="card_frente">
-                    <img class="image" src="images/image_9.jpg" alt="Carta Selecionada">
+            <div class="card-viewer">
+                <button id="prev-card" class="nav-arrow" type="button" aria-label="Carta anterior">◀</button>
+                <div class="ambas_cartas">
+                    <div class="card_frente">
+                        <img class="image" src="images/image_9.jpg" alt="Carta Selecionada">
+                    </div>
                 </div>
+                <button id="next-card" class="nav-arrow" type="button" aria-label="Próxima carta">▶</button>
             </div>
             <button id="toggle-description" class="description-toggle" type="button" aria-expanded="false" aria-controls="card-description">Mostrar descrição</button>
             <div id="card-description" class="card-description">Clique em uma carta para ver a descrição.</div>
