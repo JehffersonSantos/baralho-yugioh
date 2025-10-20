@@ -20,20 +20,18 @@ function trocarCarta(id) {
 
 
 function virarCarta() {
-
-        imagemCard.classList.add("trocando");
-        setTimeout(() => {
-        imagemCard.classList.remove("trocando");
-        }, 400);
-
-        // imagemCard.addEventListener('transitionend', () => {
-        //     imagemCard.setAttribute('src', carta_virada);
-        // })
+  imagemCard.setAttribute('src', carta_virada);
+  imagemCard.classList.add("trocando");
+  setTimeout(() => {
+  imagemCard.classList.remove("trocando");
+  }, 400);
+  // imagemCard.addEventListener('transitionend', () => {
+  //     imagemCard.setAttribute('src', carta_virada);
+  // });
 };
 
 selecionarCard.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-
 
         const button = e.target;
 
