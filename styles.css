@@ -68,12 +68,14 @@ body {
   backface-visibility: hidden;
   transform-style: preserve-3d;
   transform-origin: center bottom;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease;
   transform: rotateY(0deg) translateY(0);
 }
 
 .trocando {
   transform: rotateY(180deg);
+  /* transform: translateY(-35px); */
+  opacity: 0;
 }
 
 @media (max-width: 780px) {

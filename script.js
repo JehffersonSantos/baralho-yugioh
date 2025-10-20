@@ -1,6 +1,8 @@
 const selecionarCard = document.querySelectorAll('.nome_card');
 const imagemCard = document.querySelector('.image');
 
+const cartaCosta = 'images/image_9.jpg';
+
 const criarCard = document.createElement('img');
 
 function esperarAnimacao(elemento) {
@@ -14,16 +16,18 @@ function esperarAnimacao(elemento) {
 };
 
 async function trocarCarta(id) {
-    imagemCard.classList.add("trocando");
-    await esperarAnimacao(imagemCard);
-    imagemCard.setAttribute('src', `images/image_${id}.jpg`);
-    imagemCard.classList.remove("trocando");
+  imagemCard.setAttribute('src', cartaCosta);
+  imagemCard.classList.add("trocando");
+  await esperarAnimacao(imagemCard);
+  imagemCard.setAttribute('src', `images/image_${id}.jpg`);
+  imagemCard.classList.remove("trocando");
 
 };
 
 selecionarCard.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    const id = e.target.getAttribute("id");
+    const id = e.currentTarget.getAttribute("id");
+    
     trocarCarta(id); 
   });
 });
