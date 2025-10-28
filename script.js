@@ -1,5 +1,7 @@
 const selecionarCard = document.querySelectorAll('.nome_card');
 const imagemCard = document.querySelector('.image');
+const botaoTrocar = document.querySelector('.descricao_botao');
+const descricaoCarta = document.querySelector('.descricao_carta');
 
 const cartaCosta = 'images/image_9.jpg';
 
@@ -19,6 +21,19 @@ const descriptions = {
   '8': 'Maldição do Dragão: dragão alado envolto em trevas, usado por Yugi no início. 2000 ATK e 1500 DEF. Comumente fundido com Gaia, o Cavaleiro Implacável, formando Gaia, o Cavaleiro do Dragão.'
 };
 
+botaoTrocar.addEventListener('click', (e) => {
+  console.log('Botão de trocar carta clicado');
+
+  botaoTrocar.classList.toggle('ativo');
+
+  if (botaoTrocar.classList.contains('ativo')) {
+    descricaoCarta.style.display = 'block';
+    botaoTrocar.textContent = 'Esconder Descrição';
+  } else {
+    descricaoCarta.style.display = 'none';
+    botaoTrocar.textContent = 'Mostrar Descrição';
+  }
+});
 
 console.log(setas);
 console.log(selecionarCard);
@@ -26,6 +41,8 @@ console.log(selecionarCard);
 
 console.log(imagemCard);
 console.log();
+
+
 
 setas.forEach((seta) => {
     seta.addEventListener('click', (e) => {

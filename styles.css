@@ -91,9 +91,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   position: relative;
-  margin-top: -110px;
-
+  gap: 0.5rem;
 }
 
 .setas {
@@ -105,18 +105,19 @@ body {
 }
 
 .descricao {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  gap: 1rem;
+}
+
+.descricao_carta {
+  width: 300px;
   background-color: var(--Bege-medio);
-  padding: 1.5rem;
-  border: 0.5rem solid var(--Marrom-escuro);
   color: var(--Marrom-escuro);
+  border: solid 0.2rem var(--Marrom-escuro);
   border-radius: 0.5rem;
+  padding: 1rem 0;
 }
 
 .descricao_botao {
@@ -133,7 +134,7 @@ body {
     text-align: center;
     height: auto;
     gap: 1rem;
-    padding-top: 7rem;
+
   }
 
   .image {
@@ -157,34 +158,33 @@ body {
   }
 
   .carta_seta {
-    display: flex;
-    flex-direction: row;
     gap: 0.8rem;
   }
 
   .descricao {
     position: static;
     transform: none;
-    padding: 1rem;
     font-size: 0.8rem;
+    
   }
 
-  .descricao_carta, .active {
-    /* display: none; */
-    
+  .descricao_carta {
+    display: none;
+    color: var(--Marrom-escuro);
+    background-color: var(--Bege-medio);
+    border: solid 0.2rem var(--Marrom-escuro);
+    padding: 0.5rem 0.1rem;
+    border-radius: 0.5rem;
   }
 
   .descricao_botao {
     display: inline-block;
-    margin: 0 ;
-    position: static;
-    background-color: var(--Bege-medio);
-    border: 2px solid var(--Marrom-escuro);
     color: var(--Marrom-escuro);
-    padding: 0.5rem;
     cursor: pointer;
-    
-
+    background-color: var(--Bege-medio);
+    border: solid 0.2rem var(--Marrom-escuro);
+    padding: 1rem;
+    border-radius: 0.5rem;
   }
 
   
