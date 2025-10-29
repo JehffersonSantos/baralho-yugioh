@@ -10,7 +10,7 @@ const cartaCosta = 'images/image_9.jpg';
 
 const setas = document.querySelectorAll('.setas');
 
-const descriptions = {
+const descricao = {
   '1': 'Um monstro zumbi de Nível 1 com estatísticas modestas (2500 ATK / 12000 DEF). Apesar de parecer fraco, é o núcleo de vários decks temáticos centrados em “Rei Caveira” e suas evoluções, como o poderoso Rei Caveira dos Servos. Seu verdadeiro valor está em combos e suporte a zumbis.',
   '2': 'O lendário Dragão Branco de Olhos Azuis de Seto Kaiba. Nível 8, 3000 ATK e 2500 DEF. Ícone de poder bruto, base para fusões e evoluções como o Dragão Definitivo de Olhos Azuis.',
   '3': 'O mago mais famoso e assinatura de Yugi Muto. 2500 ATK e 2100 DEF, símbolo de poder e sabedoria mística. Centro de vários suportes e fusões como Mago Negro do Caos e Menina Maga Negra.',
@@ -81,7 +81,13 @@ setas.forEach((seta) => {
     })
 });
 
+function alterarDescricao(novoId) {
+  document.getElementById('descricao_carta').innerText = descricao[novoId];
+}
 
+console.log(descricao[1])
+
+console.log(alterarDescricao);
 
 function esperarAnimacao(elemento) {
     return new Promise((resolve) => {
@@ -96,6 +102,7 @@ function esperarAnimacao(elemento) {
 async function trocarCarta(id) {
   imagemCard.setAttribute('src', cartaCosta);
   imagemCard.classList.add("trocando");
+  alterarDescricao(id)
   await esperarAnimacao(imagemCard);
   imagemCard.setAttribute('src', `images/image_${id}.jpg`);
   imagemCard.classList.remove("trocando");

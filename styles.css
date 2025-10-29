@@ -124,6 +124,8 @@ body {
   display: none;
 }
 
+
+
 @media (max-width: 780px) {
   .glossario {
     gap: 0.1rem;
