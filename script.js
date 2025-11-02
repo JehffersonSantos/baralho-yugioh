@@ -1,6 +1,7 @@
 const selecionarCard = document.querySelectorAll('.nome_card');
 const imagemCard = document.querySelector('.carta_imagem');
 const botaoDescricao = document.querySelector('.botao_descricao');
+const descricaoCarta = document.querySelector('.descricao_carta')
 
 const carta_virada = 'images/image_9.jpg';
 
@@ -20,8 +21,11 @@ const descricao = {
 botaoDescricao.addEventListener('click', (e) => {
   console.log("botão clicado");
 
+    const ativo = botaoDescricao.classList.toggle('ativo');
   
-
+  descricaoCarta.style.display = ativo ? 'block' : 'none';
+  console.log(descricaoCarta)
+  botaoDescricao.textContent = ativo ? 'Esconder Descrição' : 'Mostrar Descrição';
 
 });
 
