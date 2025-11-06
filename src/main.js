@@ -1,3 +1,5 @@
+import './style.css';
+
 const selecionarCard = document.querySelectorAll('.nome_card');
 const imagemCard = document.querySelector('.carta_imagem');
 const botaoDescricao = document.querySelector('.botao_descricao');
@@ -5,7 +7,7 @@ const descricaoCarta = document.querySelector('.descricao_carta');
 const seta = document.querySelectorAll('.setas');
 const descricao_carta = document.querySelector('.descricao_carta')
 
-const carta_virada = 'images/image_9.jpg';
+const carta_virada = '/images/image_9.jpg';
 
 const descricao = {
   1: "Um guerreiro esqueleto que surge das trevas.",
@@ -59,7 +61,7 @@ seta.forEach((seta) => {
     console.log(cartaAtual)
 
     virarCarta()
-    // imagemCard.setAttribute('src', `images/image_${cartaAtual}.jpg`)
+    // imagemCard.setAttribute('src', `/images/image_${cartaAtual}.jpg`)
     atualizarDescricao(cartaAtual)
     trocarCarta(cartaAtual)
   });
@@ -78,7 +80,7 @@ function atualizarDescricao (cartaAtual) {
 
 function trocarCarta(id) { 
     imagemCard.addEventListener('transitionend', () => {
-        imagemCard.setAttribute('src', `images/image_${id}.jpg`);
+        imagemCard.setAttribute('src', `/images/image_${id}.jpg`);
     },  { once: true });
     atualizarDescricao(id);
 };
