@@ -3,41 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glossario Yu Gi Oh</title>
+    <title>Baralho Yu-Gi-Oh</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script type="module" src="/src/main.js"></script>
-
-    
 </head>
 <body>
-    <header></header>
-    <main class="container">
-        <section class="glossario">
-            <h2 class="cards">Cards</h2>
-            <ul class="nomes_cards">
-                <li id="1" class="nome_card">Rei Caveira</li>
-                <li id="2" class="nome_card">Dragão Branco de Olhos Azuis</li>
-                <li id="3" class="nome_card">Mago Negro</li>
-                <li id="4" class="nome_card">Dragão Negro</li>
-                <li id="5" class="nome_card">Meteor B Dragon</li>
-                <li id="6" class="nome_card">Fusão</li>
-                <li id="7" class="nome_card">Slifer Dragão do Céu</li>
-                <li id="8" class="nome_card">Maldição do Dragão</li>
-            </ul>
-        </section>
-        <div class="card_escolhido">
-            <div class="card_setas">
-                <button id="esquerda" class="setas">←</button>
-                <img class="carta_imagem" src="/images/image_9.jpg" alt="Carta Selecionada">
-                <button id="direita" class="setas">→</button>
-            </div>
-            <div class="descricao">
-                <button class="botao_descricao">Mostrar Descrição</button>
-                <h1 id="descricao_carta" class="descricao_carta">Parte de tras das cartas do Yu gi oh</h1>
-            </div>
+    <header class="topbar">
+        <div>
+            <h1>Baralho Yu-Gi-Oh</h1>
+            <p class="subtitle">Gerencie cartas, jogadores e partidas em memória</p>
         </div>
+        <nav class="nav">
+            <a href="#" data-nav="cards" class="nav-link active">Cadastrar cartas</a>
+            <a href="#" data-nav="players" class="nav-link">Criar jogador</a>
+            <a href="#" data-nav="matches" class="nav-link">Criar partida</a>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="view active" data-view="cards">
+            <div class="panel">
+                <h2>Nova carta</h2>
+                <form id="cardForm" class="form-grid">
+                    <label>
+                        Nome
+                        <input type="text" name="nome" placeholder="Dragão Branco de Olhos Azuis" required>
+                    </label>
+                    <label>
+                        Força
+                        <input type="number" name="forca" min="0" step="1" required>
+                    </label>
+                    <label>
+                        Defesa
+                        <input type="number" name="defesa" min="0" step="1" required>
+                    </label>
+                    <label class="full">
+                        URL da imagem
+                        <input type="url" name="imagemUrl" placeholder="https://exemplo.com/imagem.jpg" required>
+                    </label>
+                    <button type="submit" class="primary">Adicionar carta</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h2>Cartas cadastradas</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Força</th>
+                                <th>Defesa</th>
+                                <th>Criada em</th>
+                                <th>Atualizada em</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cardTableBody">
+                            <tr>
+                                <td colspan="5" class="empty">Nenhuma carta cadastrada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="view" data-view="players">
+            <div class="panel">
+                <h2>Novo jogador</h2>
+                <form id="playerForm" class="form-grid">
+                    <label class="full">
+                        Nome
+                        <input type="text" name="nome" placeholder="Seto Kaiba" required>
+                    </label>
+                    <label>
+                        Pontos de vida
+                        <input type="number" name="vida" min="0" step="100" value="4000" required>
+                    </label>
+                    <div class="card-selector">
+                        <button type="button" id="openCardModal" class="secondary">Selecionar cartas</button>
+                        <div id="selectedCardsDisplay" class="selected-cards empty">Nenhuma carta selecionada.</div>
+                    </div>
+                    <button type="submit" class="primary">Cadastrar jogador</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h2>Jogadores cadastrados</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Vida</th>
+                                <th>Cartas</th>
+                                <th>Criado em</th>
+                                <th>Atualizado em</th>
+                            </tr>
+                        </thead>
+                        <tbody id="playerTableBody">
+                            <tr>
+                                <td colspan="5" class="empty">Nenhum jogador cadastrado.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="view" data-view="matches">
+            <div class="panel">
+                <h2>Nova partida</h2>
+                <form id="matchForm" class="form-grid">
+                    <label>
+                        Desafiante
+                        <select name="desafiante" required>
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                    <label>
+                        Desafiado
+                        <select name="desafiado" required>
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="primary">Criar partida</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h2>Partidas</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Desafiante</th>
+                                <th>Desafiado</th>
+                                <th>Criada em</th>
+                                <th>Início</th>
+                                <th>Fim</th>
+                                <th>Vencedor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matchTableBody">
+                            <tr>
+                                <td colspan="7" class="empty">Nenhuma partida cadastrada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <div class="modal hidden" id="cardModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="cardModalTitle">
+            <header class="modal-header">
+                <h2 id="cardModalTitle">Selecione cartas</h2>
+                <button type="button" class="icon-button" id="closeCardModal" aria-label="Fechar modal">×</button>
+            </header>
+            <div id="modalCardList" class="modal-body">
+                <p class="empty">Cadastre cartas para selecioná-las.</p>
+            </div>
+            <footer class="modal-footer">
+                <span id="modalSelectionCount" class="selection-count">Nenhuma carta selecionada</span>
+                <div class="modal-actions">
+                    <button type="button" class="secondary" id="cancelCardSelection">Cancelar</button>
+                    <button type="button" class="primary" id="confirmCardSelection">Confirmar</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="playerDetailModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="playerModalTitle">
+            <header class="modal-header">
+                <h2 id="playerModalTitle">Detalhes do jogador</h2>
+                <button type="button" class="icon-button" id="closePlayerModal" aria-label="Fechar modal">×</button>
+            </header>
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div class="detail-group">
+                        <strong>Nome</strong>
+                        <span id="playerModalName">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Pontos de vida</strong>
+                        <span id="playerModalLife">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Criado em</strong>
+                        <span id="playerModalCreated">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Atualizado em</strong>
+                        <span id="playerModalUpdated">-</span>
+                    </div>
+                </div>
+                <section>
+                    <h3>Cartas selecionadas</h3>
+                    <div id="playerModalCards" class="modal-card-gallery">
+                        <p class="empty">Nenhuma carta vinculada.</p>
+                    </div>
+                </section>
+            </div>
+            <footer class="modal-footer">
+                <button type="button" class="primary" id="playerModalCloseButton">Fechar</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="cardDetailModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="cardDetailTitle">
+            <header class="modal-header">
+                <h2 id="cardDetailTitle">Detalhes da carta</h2>
+                <button type="button" class="icon-button" id="closeCardDetailModal" aria-label="Fechar modal">×</button>
+            </header>
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div class="detail-group">
+                        <strong>Nome</strong>
+                        <span id="cardModalName">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Força</strong>
+                        <span id="cardModalAttack">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Defesa</strong>
+                        <span id="cardModalDefense">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Criada em</strong>
+                        <span id="cardModalCreated">-</span>
+                    </div>
+                    <div class="detail-group">
+                        <strong>Atualizada em</strong>
+                        <span id="cardModalUpdated">-</span>
+                    </div>
+                </div>
+                <div class="card-preview">
+                    <h3>Visualização</h3>
+                    <img id="cardModalImage" src="" alt="Visualização da carta">
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button type="button" class="primary" id="cardDetailCloseButton">Fechar</button>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>
