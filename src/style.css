@@ -5,22 +5,64 @@
 }
 
 :root {
+  color-scheme: light;
   --bg: #f5f0e6;
   --surface: #ffffff;
+  --surface-alt: #fbf4eb;
+  --surface-soft: rgba(214, 180, 122, 0.08);
   --primary: #5c3a1a;
   --primary-light: #7b4e2a;
   --accent: #d6b47a;
   --shadow: rgba(60, 36, 19, 0.15);
-  --text-dark: #2b1a0c;
+  --shadow-strong: rgba(60, 36, 19, 0.45);
+  --text: #2b1a0c;
   --text-muted: #7a6a5d;
+  --border: rgba(92, 58, 26, 0.2);
+  --border-strong: rgba(92, 58, 26, 0.3);
+  --table-head: rgba(214, 180, 122, 0.25);
+  --row-hover: rgba(214, 180, 122, 0.18);
+  --selection: rgba(214, 180, 122, 0.2);
+  --secondary-bg: rgba(92, 58, 26, 0.1);
+  --overlay: rgba(34, 21, 12, 0.35);
+  --chip-bg: rgba(214, 180, 122, 0.12);
+  --input-bg: #fff;
+  --ring: rgba(92, 58, 26, 0.15);
+  --on-primary: #fff;
   --radius: 12px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f0c09;
+  --surface: #18120d;
+  --surface-alt: #1f1811;
+  --surface-soft: rgba(201, 149, 74, 0.08);
+  --primary: #e6b66b;
+  --primary-light: #f0c47e;
+  --accent: #c9954a;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --shadow-strong: rgba(0, 0, 0, 0.6);
+  --text: #f6ede1;
+  --text-muted: rgba(246, 237, 225, 0.72);
+  --border: rgba(230, 182, 107, 0.28);
+  --border-strong: rgba(230, 182, 107, 0.4);
+  --table-head: rgba(201, 149, 74, 0.16);
+  --row-hover: rgba(201, 149, 74, 0.14);
+  --selection: rgba(230, 182, 107, 0.22);
+  --secondary-bg: rgba(230, 182, 107, 0.16);
+  --overlay: rgba(7, 5, 3, 0.7);
+  --chip-bg: rgba(230, 182, 107, 0.18);
+  --input-bg: #120d0a;
+  --ring: rgba(230, 182, 107, 0.35);
+  --on-primary: #0f0804;
 }
 
 body {
   background: var(--bg);
   font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: var(--text-dark);
+  color: var(--text);
   min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .topbar {
@@ -35,6 +77,13 @@ body {
 .topbar h1 {
   font-family: "Press Start 2P", cursive;
   font-size: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .subtitle {
@@ -62,12 +111,48 @@ body {
 .nav-link:hover {
   transform: translateY(-2px);
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .nav-link.active {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 10px 20px -18px var(--shadow-strong);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px -20px var(--shadow-strong);
+  border-color: var(--border-strong);
+}
+
+.theme-toggle__icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 0.95rem;
+}
+
+.theme-toggle[aria-pressed="true"] .theme-toggle__icon {
+  background: var(--text);
+  color: var(--bg);
 }
 
 .container {
@@ -86,6 +171,7 @@ body {
 
 .panel {
   background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: clamp(1.5rem, 3vw, 2rem);
   box-shadow: 0 15px 35px -25px var(--shadow);
@@ -124,22 +210,23 @@ button {
 
 input,
 select {
-  border: 1px solid rgba(92, 58, 26, 0.2);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.6rem 0.75rem;
-  background: #fff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--input-bg);
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 input:focus,
 select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(92, 58, 26, 0.15);
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
 button {
-  border: none;
+  border: 1px solid transparent;
   border-radius: 999px;
   padding: 0.65rem 1.5rem;
   cursor: pointer;
@@ -149,18 +236,19 @@ button {
 
 button.primary {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 button.secondary {
-  background: rgba(92, 58, 26, 0.1);
+  background: var(--secondary-bg);
+  border-color: var(--border);
   color: var(--primary);
 }
 
 button.primary:hover,
 button.secondary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 20px -15px var(--shadow);
+  box-shadow: 0 12px 20px -15px var(--shadow-strong);
 }
 
 .card-selector {
@@ -175,13 +263,13 @@ button.secondary:hover {
   flex: 1;
   min-height: 72px;
   border-radius: 10px;
-  border: 1px dashed rgba(92, 58, 26, 0.3);
+  border: 1px dashed var(--border-strong);
   padding: 0.75rem;
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
   align-items: center;
-  background: rgba(214, 180, 122, 0.08);
+  background: var(--surface-soft);
 }
 
 .selected-cards.empty {
@@ -196,9 +284,9 @@ button.secondary:hover {
   gap: 0.45rem;
   padding: 0.45rem 0.6rem 0.6rem;
   border-radius: 12px;
-  background: #fff;
+  background: var(--surface);
   box-shadow: 0 8px 16px -14px var(--shadow);
-  border: 1px solid rgba(92, 58, 26, 0.1);
+  border: 1px solid var(--border);
   width: 96px;
 }
 
@@ -207,8 +295,8 @@ button.secondary:hover {
   height: 96px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid rgba(92, 58, 26, 0.2);
-  box-shadow: 0 6px 16px -14px rgba(60, 36, 19, 0.4);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 6px 16px -14px var(--shadow-strong);
 }
 
 .selected-card-thumb span {
@@ -233,14 +321,14 @@ table {
 }
 
 thead {
-  background: rgba(214, 180, 122, 0.25);
+  background: var(--table-head);
 }
 
 th,
 td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(92, 58, 26, 0.1);
+  border-bottom: 1px solid var(--border);
   vertical-align: top;
 }
 
@@ -263,7 +351,7 @@ tbody tr:last-child td {
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(34, 21, 12, 0.35);
+  background: var(--overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -279,11 +367,12 @@ tbody tr:last-child td {
 
 .modal-content {
   background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   max-width: 750px;
   width: 100%;
   max-height: 90vh;
-  box-shadow: 0 30px 60px -30px rgba(60, 36, 19, 0.45);
+  box-shadow: 0 30px 60px -30px var(--shadow-strong);
   display: flex;
   flex-direction: column;
 }
@@ -310,12 +399,12 @@ tbody tr:last-child td {
 
 .card-option {
   position: relative;
-  border: 2px solid transparent;
+  border: 2px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
-  background: rgba(214, 180, 122, 0.1);
+  background: var(--surface-soft);
   cursor: pointer;
-  transition: border 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -325,12 +414,12 @@ tbody tr:last-child td {
 
 .card-option:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 24px -22px rgba(60, 36, 19, 0.45);
+  box-shadow: 0 18px 24px -22px var(--shadow-strong);
 }
 
 .card-option.selected {
   border-color: var(--primary);
-  background: rgba(214, 180, 122, 0.2);
+  background: var(--selection);
 }
 
 .card-option.selected::before {
@@ -341,12 +430,12 @@ tbody tr:last-child td {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--surface);
   color: var(--primary);
   display: grid;
   place-items: center;
   font-weight: 700;
-  box-shadow: 0 12px 24px -18px rgba(60, 36, 19, 0.45);
+  box-shadow: 0 12px 24px -18px var(--shadow-strong);
 }
 
 .card-option.selected::after {
@@ -357,7 +446,7 @@ tbody tr:last-child td {
   font-size: 0.7rem;
   font-weight: 700;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   padding: 0.25rem 0.5rem;
   border-radius: 999px;
   letter-spacing: 0.03em;
@@ -368,7 +457,7 @@ tbody tr:last-child td {
   border-radius: 10px;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  box-shadow: 0 12px 24px -18px rgba(60, 36, 19, 0.45);
+  box-shadow: 0 12px 24px -18px var(--shadow-strong);
 }
 
 .card-option .meta {
@@ -418,8 +507,8 @@ tbody tr:last-child td {
   height: 72px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid rgba(92, 58, 26, 0.25);
-  box-shadow: 0 10px 20px -18px rgba(60, 36, 19, 0.5);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 10px 20px -18px var(--shadow-strong);
 }
 
 .clickable-row {
@@ -428,7 +517,7 @@ tbody tr:last-child td {
 }
 
 .clickable-row:hover {
-  background: rgba(214, 180, 122, 0.18);
+  background: var(--row-hover);
 }
 
 .detail-grid {
@@ -441,9 +530,10 @@ tbody tr:last-child td {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  background: rgba(214, 180, 122, 0.12);
+  background: var(--chip-bg);
   padding: 0.75rem;
   border-radius: 10px;
+  border: 1px solid var(--border);
 }
 
 .detail-group strong {
@@ -471,8 +561,8 @@ tbody tr:last-child td {
   align-items: center;
   padding: 0.75rem;
   border-radius: 12px;
-  background: rgba(214, 180, 122, 0.12);
-  border: 1px solid rgba(92, 58, 26, 0.15);
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
 }
 
 .modal-card img {
@@ -480,8 +570,8 @@ tbody tr:last-child td {
   height: 160px;
   object-fit: cover;
   border-radius: 10px;
-  border: 1px solid rgba(92, 58, 26, 0.2);
-  box-shadow: 0 12px 24px -20px rgba(60, 36, 19, 0.5);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 12px 24px -20px var(--shadow-strong);
 }
 
 .modal-card span {
@@ -502,8 +592,8 @@ tbody tr:last-child td {
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 14px;
-  border: 2px solid rgba(92, 58, 26, 0.2);
-  box-shadow: 0 30px 45px -35px rgba(60, 36, 19, 0.45);
+  border: 2px solid var(--border-strong);
+  box-shadow: 0 30px 45px -35px var(--shadow-strong);
 }
 
 .card-preview h3 {

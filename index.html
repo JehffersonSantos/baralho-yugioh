@@ -15,11 +15,17 @@
             <h1>Baralho Yu-Gi-Oh</h1>
             <p class="subtitle">Gerencie cartas, jogadores e partidas em memória</p>
         </div>
-        <nav class="nav">
-            <a href="#" data-nav="cards" class="nav-link active">Cadastrar cartas</a>
-            <a href="#" data-nav="players" class="nav-link">Criar jogador</a>
-            <a href="#" data-nav="matches" class="nav-link">Criar partida</a>
-        </nav>
+        <div class="topbar-actions">
+            <nav class="nav">
+                <a href="#" data-nav="cards" class="nav-link active">Cadastrar cartas</a>
+                <a href="#" data-nav="players" class="nav-link">Criar jogador</a>
+                <a href="#" data-nav="matches" class="nav-link">Criar partida</a>
+            </nav>
+            <button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false">
+                <span class="theme-toggle__icon" id="themeIcon" aria-hidden="true">☀</span>
+                <span id="themeLabel">Modo claro</span>
+            </button>
+        </div>
     </header>
     <main class="container">
         <section class="view active" data-view="cards">

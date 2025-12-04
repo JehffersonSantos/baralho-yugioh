@@ -1,7 +1,7 @@
-import './style.css';
 import { cartaStore } from './carta';
-import { usuarioStore } from './usuario';
 import { partidaStore } from './partida';
+import './style.css';
+import { usuarioStore } from './usuario';
 
 const navLinks = document.querySelectorAll('[data-nav]');
 const views = document.querySelectorAll('[data-view]');
@@ -40,6 +40,9 @@ const cardModalDefense = document.getElementById('cardModalDefense');
 const cardModalCreated = document.getElementById('cardModalCreated');
 const cardModalUpdated = document.getElementById('cardModalUpdated');
 const cardModalImage = document.getElementById('cardModalImage');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const themeLabel = document.getElementById('themeLabel');
 
 let selectedCardIds = [];
 let modalSelection = new Set();
@@ -403,6 +406,32 @@ const closeCardDetailModal = () => {
   cardModalImage.alt = 'Visualização da carta';
 };
 
+const applyTheme = (theme) => {
+  const normalizedTheme = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', normalizedTheme);
+  themeToggle?.setAttribute('aria-pressed', normalizedTheme === 'dark' ? 'true' : 'false');
+  if (themeIcon) {
+    themeIcon.textContent = normalizedTheme === 'dark' ? '☀' : '🌙';
+  }
+  if (themeLabel) {
+    themeLabel.textContent = normalizedTheme === 'dark' ? 'Modo claro' : 'Modo Escuro';
+  }
+};
+
+const getPreferredTheme = () => {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme === 'light' || storedTheme === 'dark') {
+    return storedTheme;
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'dark' : 'light';
+};
+
+const setTheme = (theme) => {
+  const normalizedTheme = theme === 'dark' ? 'dark' : 'light';
+  localStorage.setItem('theme', normalizedTheme);
+  applyTheme(normalizedTheme);
+};
+
 navLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
@@ -477,6 +506,19 @@ document.addEventListener('keydown', (event) => {
   if (cardDetailModal && !cardDetailModal.classList.contains('hidden')) {
     closeCardDetailModal();
   }
+});
+
+applyTheme(getPreferredTheme());
+themeToggle?.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+
+const systemThemeQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
+systemThemeQuery?.addEventListener('change', (event) => {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme === 'light' || storedTheme === 'dark') return;
+  applyTheme(event.matches ? 'dark' : 'light');
 });
 
 playerForm?.addEventListener('submit', (event) => {
